@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     
+   
+<div class="main-container">
+
+            <section class="bg--primary cover space--lg">
+                <div class="container">
+                	 <div class="dropzone my-dropzone" id="form_snippet_image" action="{{path('ajax_snippet_image_send')}}">
+					</div>
+                    <div class="row">
+                        <div class="masonry">
+                            
+                            <div class="masonry__container masonry--active">
+                            	{% for img in img %}
+                                <div class="masonry__item col-md-4 col-xs-6 filter-people" data-masonry-filter="People">
+                                    <a href="{{img.large}}" data-lightbox="Gallery 1"> <img alt="Image" src="{{img.thumb}}"> </a>
+                                </div>
+                                {% endfor %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+
+
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/css/dropzone.css">
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{asset('js/exif.js')}}"></script> 
+<script type="text/javascript" src="{{asset('js/dropzone.js')}}"></script>
+<script type="text/javascript">
+var _actionToDropZone = document.getElementById("form_snippet_image").action;
+
+//je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
+Dropzone.autoDiscover = false;
+
+var myDropzone = new Dropzone("#form_snippet_image", {
+ url: _actionToDropZone, 
+ 
+});
+</script>
+{% endblock %}
